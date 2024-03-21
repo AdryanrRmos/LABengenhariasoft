@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercicio 1</title>
+  </head>
+  <body>
+      <div class="valores-ordenados--app">
+        <h2>Ordenação de Valores <a href="/index.html"><i class="fa fa-arrow-circle-o-left" style="font-size:48px;"></i></a></h2>
+        <div class="row">
+          <input type="text" id="valorUsuario" placeholder="Digite um valor" />
+          <button type="button" onclick="gerenciador.adicionarValor()">
+            Add
+          </button>
+        </div>
+        <div>
+            <ol id="listaValores"></ol>
+          </div>
+      </div>   
+      
+    <script>
+      class GerenciadorValores {
+        constructor() {
+          this.valores = [];
+        }
+
+        adicionarValor() {
+          const inputElement = document.getElementById("valorUsuario");
+          const valor = inputElement.value.trim();
+
+          if (valor !== "") {
+            this.valores.push(valor);
+            inputElement.value = "";
+            this.atualizarListaOrdenada();
+          }
+        }
+
+        atualizarListaOrdenada() {
+          const listaValoresElement = document.getElementById("listaValores");
+          listaValoresElement.innerHTML = "";
+
+          const valoresOrdenados = this.valores.slice().sort(function (a, b) {
+            return a - b;
+          });
+          for (const valor of valoresOrdenados) {
+            const liElement = document.createElement("li");
+            liElement.textContent = valor;
+            listaValoresElement.appendChild(liElement);
+          }
+        }
+      }
+
+      const gerenciador = new GerenciadorValores();
+    </script>
+  </body>
+</html>

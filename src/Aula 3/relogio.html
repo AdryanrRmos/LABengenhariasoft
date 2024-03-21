@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Aula 2: Relogio</title>  
+</head>
+<body>
+   
+    <div class="relogio">
+        <div>
+            <span id="horas">00</span>
+            <span class="tempo">Horas</span>
+        </div>
+        <div>
+            <span id="minutos">00</span>
+            <span class="tempo">Minutos</span>
+        </div>
+        <div>
+            <span id="segundos">00</span>
+            <span class="tempo">Segundos</span>
+        </div>
+    </div>
+    <div class="voltar">
+        <a href="/index.html"><i class="fa fa-arrow-circle-o-left" style="font-size:48px;"></i></a>
+    </div>
+    <script type="text/javascript">
+        const horas = document.getElementById('horas');
+        const minutos = document.getElementById('minutos');
+        const segundos = document.getElementById('segundos');
+
+        const relogio = setInterval(function time() {
+            const hoje = new Date();
+            const hora = hoje.getHours();
+            const minuto = hoje.getMinutes();
+            const segundo = hoje.getSeconds();
+
+            horas.textContent = hora < 10 ? `0${hora}` : hora;
+            minutos.textContent = minuto < 10 ? `0${minuto}` : minuto;
+            segundos.textContent = segundo < 10 ? `0${segundo}` : segundo;
+        })
+    </script>
+</body>
+
+</html>
