@@ -1,62 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercicio 5</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
+      crossorigin="anonymous"
+    />
+    <title>Contador de Pessoas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .counter {
-            font-size: 30px;
-            margin-bottom: 50px;
-        }
-        button {
-            padding: 10px 10px;
-            font-size: 15px;
-            cursor: pointer;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+     
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .contador {
+        width: 350px;
+        margin-top: 50px;
+        margin-left: auto;
+        align-items: center;
+        margin-right: auto;
+        padding: 2rem;
+        box-shadow: 2px 3px 3px 1px #b6b6b6;
+      }
+
+      .contador h2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-family: sans-serif;
+        font-weight: bold;
+        padding: 5px 10px 20px;
+      }
+
+     
+      .contador div {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-around;
+        justify-items: center;
+      }
+
+      .contador-pessoas {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 15px;
+        margin: 5px;
+      }
+
+      .contador-pessoas #avatar {
+        display: flex;
+        flex-direction: row;
+        padding: 5px 10px;
+        justify-content: space-around;
+      }
+ 
+      span {
+        width: 7rem;
+        padding: 2px;
+        margin: 2px 5px;
+        text-align: center;
+        height: 2rem;
+        border: 1px solid;
+        border-radius: 4px;
+      }
+
+      button {
+        border: none;
+        padding: 5px;
+        border-radius: 16px;
+        cursor: pointer;
+        font-weight: 400;
+        color: #ffffff;
+        margin: 5px;
+      }
+      .count-button {
+        width: 2rem;
+        align-items: center;
+        height: 2rem;
+        background-color: #1f792b;
+        font-weight: 500;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .count-button:last-child {
+        background-color: #e04000
+      }
+
+      .fa-arrows-rotate {
+        cursor: pointer;
+      }
     </style>
-    </head>
-    <body>
-    <div class="container">
-        <div class="counter" id="homensCounter">Homens: 0</div>
-        <div class="counter" id="mulheresCounter">Mulheres: 0</div>
-        <button onclick="adicionarHomem()">Adicionar Homem</button>
-        <button onclick="adicionarMulher()">Adicionar Mulher</button>
-        <button id="totalButton" onclick="mostrarTotal()">Total de Homens e Mulheres</button>
+  </head>
+  <body>
+    <div class="contador">
+        <h2>Total <i id="reset" class="fa-solid fa-arrows-rotate"></i> </h2>
+        <span id="total">0</span>
+      <div class="contador-pessoas">
+        <div id="avatar">
+          <img src="image/man.png" alt="Avatar masculino" />
+          <div>
+            <button type="button" class="count-button" id="plusH">+</button>
+            <button type="button" class="count-button" id="minusH">-</button>
+          </div>
+          <div>
+            <p>Homem</p><br>
+            <span id="homens">0</span>
+          </div>
+        </div>
+        <div id="avatar">
+          <img src="image/woman.png" alt="Avatar feminino" />
+          <div>
+            <button type="button" class="count-button" id="plusM">+</button>
+            <button type="button" class="count-button" id="minusM">-</button>
+          </div>
+          <div>
+            <p>Mulher</p>
+            <span id="mulheres">0</span>
+          </div>
+        </div>
+      </div>
+      <a href="/index.html"><i class="fa fa-arrow-circle-o-left" style="font-size:30px; color: black;"></i></a>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/d12d816b50.js"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        let homens = 0;
-        let mulheres = 0;
-    
-        function adicionarHomem() {
-            homens++;
-            atualizarContadores();
+      class ContadorPessoas {
+        constructor() {
+          this.homens = 0;
+          this.mulheres = 0;
         }
-    
-        function adicionarMulher() {
-            mulheres++;
-            atualizarContadores();
+
+        // Método para incrementar o contador de homens
+        incrementarHomens() {
+          this.homens++;
+          if (this.homens < 0) {
+            this.homens = 0;
+          }
+          document.getElementById("homens").textContent = this.homens;
+          this.atualizarTotal();
         }
-        function mostrarTotal() {
-            const total = homens + mulheres;
-            alert('Total de Homens e Mulheres: ' + total);
+
+        // Método para decrementar o contador de homens
+        decrementarHomens() {
+          this.homens--;
+          if (this.homens < 0) {
+            this.homens = 0;
+          }
+          document.getElementById("homens").textContent = this.homens;
+          this.atualizarTotal();
         }
-    
-        function atualizarContadores() {
-            document.getElementById('homensCounter').innerText = 'Homens: ' + homens;
-            document.getElementById('mulheresCounter').innerText = 'Mulheres: ' + mulheres;
+
+        // Método para incrementar o contador de mulheres
+        incrementarMulheres() {
+          this.mulheres++;
+          if (this.mulheres < 0) {
+            this.mulheres = 0;
+          }
+          document.getElementById("mulheres").textContent = this.mulheres;
+          this.atualizarTotal();
         }
+
+        // Método para decrementar o contador de mulheres
+        decrementarMulheres() {
+          this.mulheres--;
+          if (this.mulheres < 0) {
+            this.mulheres = 0;
+          }
+          document.getElementById("mulheres").textContent = this.mulheres;
+          this.atualizarTotal();
+        }
+
+        // Método para atualizar o contador total
+        atualizarTotal() {
+          const total = this.homens + this.mulheres;
+          document.getElementById("total").textContent = total;
+        }
+        resetarValores() {
+          this.homens = 0;
+          this.mulheres = 0;
+          document.getElementById("homens").textContent = 0;
+          document.getElementById("mulheres").textContent = 0;
+          this.atualizarTotal();
+        }
+      }
+
+      const contador = new ContadorPessoas();
+
+      // Associar eventos aos botões
+      document.getElementById("plusH").addEventListener("click", () => {
+        contador.incrementarHomens();
+      });
+
+      document.getElementById("minusH").addEventListener("click", () => {
+        contador.decrementarHomens();
+      });
+
+      document.getElementById("plusM").addEventListener("click", () => {
+        contador.incrementarMulheres();
+      });
+
+      document.getElementById("minusM").addEventListener("click", () => {
+        contador.decrementarMulheres();
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        contador.resetarValores();
+      });
     </script>
-    </body>
-    </html>
-</div>  
-    
+  </body>
+</html>
